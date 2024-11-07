@@ -1,43 +1,54 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
 import json
+import os
 
-app = Flask(__name__)
-
-def load_task():
-    try:
-        with open("tasks.json", "r") as file:
-            return json.load(file)
-    except FileNotFoundError:
+def load_tasks():
+    """Load tasks from JSON file"""
+    if os.path.exists('todo.json'):
+        with open('todo json', 'r') as f:
+            return json.load(f)
+    else:
         return []
     
-def lagre_task(tasks):
-    with open("tasks.json", "w") as file:
-        json.dump(tasks, file, indent=4)
+def lagre_tasks(tasks):
+    """Save tasks to JSON file"""
+    with open('todo.json', 'w') as f:
+        json.dump(tasks, f)
 
-@app.route("/")
-def index():
-    tasks = load_tasks()
-    return render_template("index.html", tasks=tasks)
+def display_tasks(tasks):
+    """Display all tasks"""
+    print("To-do list:")
+    for i, task in enumerate(tasks, 1):
+        print(f"{i}. {task}")
 
-@app.route("/add", methods=["POST"])
-def add_task():
-    task_content = request.form.get("content")
-    if task_content:
-        tasks = load_tasks()
-        new_task = {"id": len(tasks) +1, "content": task_content, "completed": False}
-        tasks.append(new_task)
-        save_tasks(tasks)
-    return redirect(url_for("index"))
-
-@app.route("/delete/<int:task_id>")
-def delete_task(task_id):
-    tasks = load_task()
-    tasks = [task for task in tasks if task["id"] != task_id]
+def add_task(tasks):
+    """Add a new task"""
+    new_task = input("Enter a new task: ")
+    tasks.append(new_task)
     save_tasks(tasks)
-    return redirect(url_for("index"))
+    print("Task added successfully!")
 
-if __name__ == "__main__":
-    app.run(debug=True)
+def delete_task(tasks):
+    """Delete a task"""
+    display_tasks(tasks)
+    task_number = int(input("Enter the number of the task to delete: ")) - 1
+    if 0 <= task_number < len(tasks):
+        del tasks[task_number]
+        lagre_tasks_tasks(tasks)
+        print("Task deleted successfully!")
+    else:
+        print("Invalid task number.")
+
+def complete(tasks):
+    """Mark a task as completed"""
+    display_tasks(tasks)
+    task_number = int(input("Enter the number of the task to mark complete: ")) - 1
+    if 0 <= task_number < len(tasks):
+        tasks[task_number]["completed"] = True
+        lagre_tasks(tasks)
+        print("Task marked as complete!")
+    else:
+        print("Invalid task number.")
+
 
 
 
