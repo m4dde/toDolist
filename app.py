@@ -24,7 +24,7 @@ def add_task(tasks):
     """Add a new task"""
     new_task = input("Enter a new task: ")
     tasks.append(new_task)
-    save_tasks(tasks)
+    lagre_tasks(tasks)
     print("Task added successfully!")
 
 def delete_task(tasks):
@@ -33,7 +33,7 @@ def delete_task(tasks):
     task_number = int(input("Enter the number of the task to delete: ")) - 1
     if 0 <= task_number < len(tasks):
         del tasks[task_number]
-        lagre_tasks_tasks(tasks)
+        lagre_tasks(tasks)
         print("Task deleted successfully!")
     else:
         print("Invalid task number.")
