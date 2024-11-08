@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     const taskInput = document.getElementById('newTask');
-    const form = document.getElementById('task');
+    const taskForm = document.getElementById('task-form');
     const list = document.getElementById('taskList');
 
-    let tasks = JSON.parsel(localStorage.getItem('tasks')) || [];
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
     function addTask() {
         const task = taskInput.value.trim();
         if (task !== '') {
             tasks.push({ id: Date.now(), task, completed: false});
-            saveTasks()
+            saveTasks();
             displayTasks();
             taskInput.value = '';
         }
@@ -21,15 +21,15 @@ document.addEventListener('DOMContentLoaded', function() {
         displayTasks();
     }
 
-    function toggleComplete(taskID) {
-        tasks.find(task => task.id === taskId).completed = !tasks.find(task => task.Id === taskId).completed;
+    function toggleComplete(taskId) {
+        tasks.find(task => task.id === taskId).completed = !tasks.find(task => task.id === taskId).completed;
         saveTasks();
         displayTasks();
     }
 
     function displayTasks() {
-        taskList.innerHTML = '';
-        task.forEach(task => {
+        list.innerHTML = '';
+        tasks.forEach(task => {
             const li = document.createElement('li');
             li.textContent = task.task;
             li.id = task.id;
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             checkbox.checked = task.completed;
             checkbox.onclick = () => toggleComplete(task.id);
             li.insertBefore(checkbox, li.firstChild);
-            taskList.appendChild(li);
+            list.appendChild(li);
         });
     }
 
