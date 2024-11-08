@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
 
-    taskForm.addEventListener('submit', (e) => {
+    document.getElementById('task-form').addEventListener('submit', (e) => {
         e.preventDefault();
         addTask();
     });
