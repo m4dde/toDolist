@@ -49,6 +49,33 @@ def complete(tasks):
     else:
         print("Invalid task number.")
 
+def run_app():
+    tasks = load_tasks()
 
+    while True:
+        print("\nOptions:")
+        print("1. Display tasks")
+        print("2. Add tasks")
+        print("3. Delete tasks")
+        print("4. Mark task as complete")
+        print("5. Quit")
+
+        choice = input("Choose an option: ")
+        if choice == "1":
+            display_tasks(tasks)
+        elif choice == "2":
+            add_task(tasks)
+        elif choice == "3":
+            delete_task(tasks)
+        elif choice == "4":
+            complete(tasks)
+        elif choice == "5":
+            print("...Quitting")
+            break
+        else:
+            print("Invalid option. Try again.")
+
+if __name__ == "__main__":
+    run_app()
 
 
