@@ -3,7 +3,7 @@ import os
 
 def load_tasks():
     """Load tasks from JSON file"""
-    if os.path.exists('tasks.json'):
+    if os.path.exists('tasks json'):
         with open('tasks json', 'r') as f:
             return json.load(f)
     else:
@@ -11,7 +11,7 @@ def load_tasks():
     
 def lagre_tasks(tasks):
     """Save tasks to JSON file"""
-    with open('tasks.json', 'w') as f:
+    with open('tasks json', 'w') as f:
         json.dump(tasks, f)
 
 def display_tasks(tasks):
